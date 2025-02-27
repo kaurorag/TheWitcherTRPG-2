@@ -19,7 +19,9 @@ const fields = foundry.data.fields;
 export default class CommonActorData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-            currency: new fields.SchemaField(currency()),
+            currency:        new fields.SchemaField(currency()),
+            stolen_currency: new fields.SchemaField(currency()),
+            debt_currency: new fields.SchemaField(currency()),
             woundTresholdApplied: new fields.BooleanField({ initial: false }),
             deathStateApplied: new fields.BooleanField({ initial: false }),
             deathSaves: new fields.NumberField({ initial: 0 }),
