@@ -32,13 +32,13 @@ export default class WitcherItem extends Item {
         }
     }
 
-    async createSpellVisuals(roll, damage) {
+    async createSpellVisuals(roll, damage, options) {
         if (this.system.createTemplate && this.system.templateType && this.system.templateSize) {
             AbilityTemplate.fromItem(this)
                 ?.drawPreview()
                 .then(templates => {
                     if (this.system.regionProperties.createRegionFromTemplate) {
-                        this.createRegionFromTemplates(templates, roll, damage);
+                        this.createRegionFromTemplates(templates, roll, damage, options);
                     }
 
                     return templates;
@@ -66,6 +66,13 @@ export default class WitcherItem extends Item {
             shift: false
         }
     ) {
+        if (!this.system.attackOptions) {
+            return {
+                attackOption: 'none',
+                itemUuid: this.uuid
+            };
+        }
+
         let mapKeyToNumber;
         if (Object.values(options).every(key => !key) || this.system.attackOptions.size < 2) {
             mapKeyToNumber = 0;
